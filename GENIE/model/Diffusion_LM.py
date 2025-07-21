@@ -218,8 +218,8 @@ class CrossAttention_Diffusion_LM(nn.Module):
         self.token_emb_type = token_emb_type
         self.fix_encoder = fix_encoder
 
-        cfg = BertConfig.from_pretrained(config_name)
-        cfg.num_hidden_layers = 6
+        cfg = BertConfig.from_pretrained(config_name, num_hidden_layers=6, vocab_size=vocab_size, hidden_dropout_prob=dropout)
+        # cfg.num_hidden_layers = 6
         self.passage_encoder = BertModel.from_pretrained(config_name, config=cfg)
         # self.passage_encoder = BertModel.from_pretrained(
         #     "/colab_space/Lin0/PROD/KDexp/pretrain_model/bert-base-uncased", config=cfg)
