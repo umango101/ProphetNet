@@ -1680,14 +1680,17 @@ class GaussianDiffusion:
         '''
         for s2s
         '''
-        for name in ('src_input_ids', 'tgt_input_ids', 'answer_id'):
-            if name in input_text:
-                ids = input_text[name]
-                print(
-                    f"{name}: min={ids.min().item()}  max={ids.max().item()}  "
-                    f"vs  passage_encoder.vocab_size={model.passage_encoder.config.vocab_size}"
-                )
-        q_input_ids = input_text['tgt_input_ids'].long().to(t.device)
+        # for name in ('src_input_ids', 'tgt_input_ids', 'answer_id'):
+        #     if name in input_text:
+        #         ids = input_text[name]
+        #         print(
+        #             f"{name}: min={ids.min().item()}  max={ids.max().item()}  "
+        #             f"vs  passage_encoder.vocab_size={model.passage_encoder.config.vocab_size}"
+        #         )
+        q_input_ids = input_text['tgt_input_ids'].clone()
+        q_input_ids[q_input_ids == -100] = 0
+        q_input_ids = q_input_ids.long().to(t.device)
+
         print(model)
         x_start_mean = model.get_embeds(q_input_ids)
         p_input_ids = input_text['src_input_ids'].long().to(t.device)
