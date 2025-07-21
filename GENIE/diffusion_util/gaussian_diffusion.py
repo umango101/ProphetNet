@@ -1714,7 +1714,7 @@ class GaussianDiffusion:
         if noise is None:
             noise = th.randn_like(x_start)
         x_t = self.q_sample(x_start, t, noise=noise)  # reparametrization trick.
-        get_logits = model.module.get_logits
+        get_logits = model.get_logits
 
         terms = {}
 
