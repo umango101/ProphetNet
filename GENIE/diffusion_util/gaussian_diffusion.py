@@ -1691,7 +1691,7 @@ class GaussianDiffusion:
         q_input_ids[q_input_ids == -100] = 0
         q_input_ids = q_input_ids.long().to(t.device)
 
-        print(model)
+        # print(model)
         x_start_mean = model.get_embeds(q_input_ids)
         p_input_ids = input_text['src_input_ids'].long().to(t.device)
         p_attention_mask = input_text['src_attention_mask'].long().to(t.device)
